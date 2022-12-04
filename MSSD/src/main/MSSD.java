@@ -16,8 +16,8 @@ import net.Network;
 import net.PrintOut;
 /**
  * @author song
- *输入m棵物种树
- *输出网络
+ *Input m gene trees, and separat them by semicolons
+ *The output is constructed phylogenetic network
  *
  */
 public class MSSD {
@@ -33,7 +33,7 @@ public class MSSD {
 		System.out.println("Please type the full path of the file:");
 		filename = s.nextLine();
 				long startTime=System.currentTimeMillis();
-				ArrayList<String> files = new ArrayList<String>();//读取的文件中的每一行
+				ArrayList<String> files = new ArrayList<String>();
 				ArrayList<Network> trees = new ArrayList<Network>();
 				File file_In = new File(filename);
 				if (!file_In.exists()) {
@@ -62,13 +62,13 @@ public class MSSD {
 					d[i] = deepth(trees.get(i).net.get(0), 1);
 				}
 				ans = 0;
-				//初始化网络
+				
 				ArrayList<Network> networks = new ArrayList<Network>();
 				int ds = d.length;
 				while(ds>0){
-					//System.out.println(ds);
+					
 					ArrayList<ArrayList<Network>> nodesList = new ArrayList<ArrayList<Network>>();
-					//取出每棵树的相同层的节点，并且转换成network类型
+					
 					for (int i = 0; i < trees.size(); i++) {
 						if (d[i]>1) {
 							ArrayList<Network> nodes = NodeToNet(d[i]-1, trees.get(i));
@@ -80,7 +80,7 @@ public class MSSD {
 						}
 					}
 					for (int i = 0; i < nodesList.size(); i++) {
-						//nodesList.get(i)是第i棵树的对应层的节点
+						
 						for (int j = 0; j < nodesList.get(i).size(); j++) {
 							int[] flag = new int[2];
 							flag[0] = -1;
@@ -89,10 +89,10 @@ public class MSSD {
 							tempf[0] = -1;
 							tempf[1] = -1;
 							
-							//nodes 集合是第i棵树对应层的所有节点
+							
 							ArrayList<Network> nodes = nodesList.get(i);
 							if(nodes.get(j).net.size()==1){
-								//如果只有一个节点就不做比较，因为肯定有包含它的树要进行插入
+								
 								continue;
 							}
 							
@@ -188,7 +188,7 @@ public class MSSD {
 				
 			}
 		
-	//计算树的每个节点的深度
+	
 	public static int deepth(Node node , int d){
 		if(node == null){
 			return d;
@@ -208,7 +208,7 @@ public class MSSD {
 		return ans;
 	}
 	
-	//将深度为d-1的节点转换成net
+	
 	public static ArrayList<Network> NodeToNet(int d, Network net){
 		ArrayList<Network> nets = new ArrayList<Network>();
 		for (int i = 0; i < net.net.size(); i++) {
